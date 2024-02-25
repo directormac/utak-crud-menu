@@ -22,7 +22,7 @@ import {
   DrawerTrigger,
 } from "./ui/drawer";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { PlusIcon } from "lucide-react";
+import { FilePenLine, PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -37,13 +37,20 @@ export const ItemFormDialog = ({ update = false, id }: Props) => {
   const actionButton = (
     <Button variant={update ? "default" : "outline"}>
       {update ? (
-        "Update"
+        <>
+          {isDesktop && (
+            <span className={cn(!isDesktop && "sr-only", "mr-2")}>Update</span>
+          )}
+          <FilePenLine className="h-4 w-4" />
+        </>
       ) : (
         <>
           {isDesktop && (
-            <span className={cn(!isDesktop && "sr-only")}>New Item</span>
+            <span className={cn(!isDesktop && "sr-only", "mr-2")}>
+              New Item
+            </span>
           )}
-          <PlusIcon />
+          <PlusIcon className="h-4 w-4" />
         </>
       )}
     </Button>

@@ -12,6 +12,9 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Form } from "react-router-dom";
+import { useMediaQuery } from "usehooks-ts";
+import { Trash } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Props = {
   id: string;
@@ -21,10 +24,21 @@ type Props = {
 export const ItemDeleteDialog = ({ id, name }: Props) => {
   const [open, setOpen] = useState(false);
 
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive">Delete</Button>
+        <Button variant="destructive">
+          <>
+            {isDesktop && (
+              <span className={cn(!isDesktop && "sr-only", "mr-2")}>
+                Delete
+              </span>
+            )}
+            <Trash className="h-4 w-4" />
+          </>
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

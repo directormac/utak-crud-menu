@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import { ModeToggle } from "./mode-toggle";
-import { SearchItemCommand } from "./command";
+// import { SearchItemCommand } from "./command";
 import { ItemFormDialog } from "./item-form-dialog";
 
 export const Navbar = () => {
@@ -18,7 +18,7 @@ export const Navbar = () => {
           isDesktop && "top-0",
         )}
       >
-        <Link className="flex items-center space-x-4" to="/">
+        <Link className="flex items-center  space-x-4" to="/">
           <PackageSearch className="h-6 w-6" />
           {isDesktop && (
             <p
@@ -33,7 +33,7 @@ export const Navbar = () => {
 
         <div className="inline-flex ml-auto items-center space-x-2">
           <ItemFormDialog />
-          <SearchItemCommand />
+          {/* <SearchItemCommand /> */}
           <ModeToggle />
         </div>
       </nav>

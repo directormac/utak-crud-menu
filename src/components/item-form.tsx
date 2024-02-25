@@ -21,9 +21,8 @@ export const ItemForm = ({ id, setOpen }: ItemFormProps) => {
   const fetcher = useFetcher();
 
   const [withOptions, setWithOptions] = useState<boolean>(
-    currentSelectedItemData
-      ? currentSelectedItemData.options?.length > 0
-      : false,
+    !!currentSelectedItemData?.options?.length &&
+      currentSelectedItemData.options[0]?.name !== "default",
   );
 
   const [itemData, setItemData] = useState<Item>(
@@ -42,7 +41,7 @@ export const ItemForm = ({ id, setOpen }: ItemFormProps) => {
     event,
   ) => {
     event.preventDefault();
-    if (itemData.options.length >= 6) {
+    if (itemData.options.length >= 5) {
       toast.warning(`Maximum number of options reached!`);
       return;
     }
