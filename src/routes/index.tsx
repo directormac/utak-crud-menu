@@ -5,9 +5,10 @@ import {
 } from "react-router-dom";
 import { Layout } from "./layout";
 import { ErrorPage } from "./error";
-import { itemsLoader } from "@/lib/loaders";
+import { itemLoader, itemsLoader } from "@/lib/loaders";
 import { Home } from "./home";
 import { itemAction } from "@/lib/actions";
+import { ItemPage } from "./item";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,11 @@ export const router = createBrowserRouter(
         errorElement={<ErrorPage />}
         loader={itemsLoader}
         action={itemAction}
+      />
+      <Route
+        path="items/:id"
+        element={<ItemPage />}
+        errorElement={<ErrorPage />}
       />
     </Route>,
   ),
