@@ -10,10 +10,10 @@ import {
   // set,
 } from "firebase/database";
 import { Item } from "./types";
+import { getStorage, ref as storageRef } from "firebase/storage";
 
 export enum Collections {
   Items = "items/",
-  Categories = "categories/",
 }
 
 const firebaseConfig = {
@@ -29,11 +29,15 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase();
+export const storage = getStorage();
 
 //Query Helper Section
 
 export const getRef = (collection: Collections, id: string = "") =>
   ref(db, collection + id);
+
+export const getStorageRef = (id: string) =>
+  storageRef(storage, `items/${id}/`);
 
 export const getCollection = <T>(
   ref: DatabaseReference,
