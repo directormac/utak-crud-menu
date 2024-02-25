@@ -1,10 +1,9 @@
-import { PackageSearch, PlusIcon } from "lucide-react";
+import { PackageSearch } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import { ModeToggle } from "./mode-toggle";
 import { SearchItemCommand } from "./command";
-import { Button } from "./ui/button";
 import { ItemFormDialog } from "./item-form-dialog";
 
 export const Navbar = () => {

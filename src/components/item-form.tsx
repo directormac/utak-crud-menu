@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useFetcher } from "react-router-dom";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";

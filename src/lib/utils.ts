@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { customAlphabet } from "nanoid";
 import { QueryClient } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient();

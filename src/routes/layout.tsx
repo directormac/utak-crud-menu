@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "@/components/navbar";
-import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 
 export const Layout = () => {
