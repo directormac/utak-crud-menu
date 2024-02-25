@@ -15,8 +15,6 @@ export const itemAction: ActionFunction = async ({ request }) => {
     numbers: ["cost", "stock", "options.$.cost", "options.$.stock"],
   });
 
-  console.log(formValues);
-
   const message: GenericResponse = {
     body: "Something went wrong, Please try again later",
     errors: {},
@@ -41,7 +39,6 @@ export const itemAction: ActionFunction = async ({ request }) => {
           message.errors[key] = value;
           toast.error(`${key}: ${value}`);
         }
-        console.log(message);
         return message;
       }
 
@@ -58,23 +55,20 @@ export const itemAction: ActionFunction = async ({ request }) => {
           },
         ];
 
-      // const items = await getItems();
       const items = queryClient.getQueryData<Array<Item>>(["items"]);
 
       const alreadyExists = items?.some((item) => item.name === newItem.name);
 
       if (alreadyExists) {
-        toast.error(
-          `Item with ${newItem.name} already exists, You might want to add a variant`,
-        );
-        message.body = `Item with ${newItem.name} already exists`;
+        message.body = `Item with ${newItem.name} already exists, You might want to add a variant`;
+        toast.error(message.body);
         return message;
       }
       const result = await upsertItem(newItem.id, newItem);
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
-        toast.success(`Successfully created ${newItem.name}`);
         message.body = `Successfully created ${newItem.name}`;
+        toast.success(message.body);
         return message;
       }
       return message;
@@ -102,21 +96,18 @@ export const itemAction: ActionFunction = async ({ request }) => {
 
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
-        toast.success(`Successfully updated item with id ${formValues.id}`);
         message.body = `Successfully updated item with id ${formValues.id}`;
+        toast.success(message.body);
       }
       return message;
     }
     case "DELETE": {
       const { id } = formValues;
-
       const result = await removeItem(id);
-
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
         toast.success(`Successfully removed item with id ${id}`);
       }
-
       return message;
     }
     default:
