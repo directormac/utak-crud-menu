@@ -12,3 +12,6 @@ export const useItem = (id: string) =>
   useItemsQuery().data?.find((item) => item.id === id);
 
 export const useItemCount = () => useItemsQuery().data?.length;
+
+export const useItemCategories = () =>
+  useItemsQuery().data?.map((item) => item.category);
