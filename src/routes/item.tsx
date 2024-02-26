@@ -1,17 +1,17 @@
-import { useItem } from "@/lib/queries";
+import { Spinner } from "@/components/spinner";
+import { Button } from "@/components/ui/button";
+import { useItemQuery } from "@/lib/queries";
+import { Item } from "@/lib/types";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { FC, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { ArrowLeftCircle } from "lucide-react";
+import { FC } from "react";
+import { Link, useParams } from "react-router-dom";
 
 export const ItemPage: FC = () => {
   const { id } = useParams() as { id: string };
-  const navigate = useNavigate();
+  const { data: item, isError, isLoading } = useItemQuery(id);
 
-  const item = useItem(id);
-
-  useEffect(() => {
-    if (!item) navigate("/");
-  }, [item, navigate]);
+  if (isLoading) return <Spinner />;
 
   if (item)
     return (
@@ -19,5 +19,20 @@ export const ItemPage: FC = () => {
         <h1 className="text-3xl font-bold">Item</h1>
         <p>{capitalizeFirstLetter(item.name)}</p>
       </>
+    );
+
+  if (isError)
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-3xl font-bold">
+          Oops! the item with id: {id}, does not exist.
+        </h1>
+        <Button asChild>
+          <Link to="/">
+            <ArrowLeftCircle />
+            Go back
+          </Link>
+        </Button>
+      </div>
     );
 };
