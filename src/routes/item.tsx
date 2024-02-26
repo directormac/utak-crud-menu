@@ -1,7 +1,6 @@
 import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { useItemQuery } from "@/lib/queries";
-import { Item } from "@/lib/types";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { ArrowLeftCircle } from "lucide-react";
 import { FC } from "react";
