@@ -21,7 +21,7 @@ type Props = {
 };
 
 export const ItemCard = ({ item }: Props) => {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const isDesktop = useMediaQuery("(min-width: 1250px)");
   return (
     <Card className="flex flex-col">
       <CardHeader className="h-1/4">
