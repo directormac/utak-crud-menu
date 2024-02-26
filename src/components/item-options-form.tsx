@@ -72,7 +72,7 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
               onChangeValue={(e) => handleOptionCostChange(index, e)}
               hasError={fetcher.data?.errors?.[`options.${index}.cost`]}
               error={fetcher.data?.errors?.[`options.${index}.cost`]}
-              type="text"
+              type="number"
             />
 
             <InputField
@@ -82,7 +82,7 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
               onChangeValue={(e) => handleOptionStockChange(index, e)}
               hasError={fetcher.data?.errors?.[`options.${index}.stock`]}
               error={fetcher.data?.errors?.[`options.${index}.stock`]}
-              type="text"
+              type="number"
             />
           </div>
           <Button
