@@ -77,6 +77,13 @@ export const getPush = (collection: Collections) => push(getRef(collection));
 
 export const itemsRef = getRef(Collections.Items);
 
+export const itemRef = (id: string) => getRef(Collections.Items, id);
+
+export const getItem = async (id: string) =>
+  getCollection<Item>(itemRef(id), false)
+    .then((data) => data)
+    .catch(() => undefined);
+
 export const getItems = async () =>
   getCollection<Item[]>(itemsRef)
     .then((data) => data)
