@@ -9,7 +9,7 @@ import {
 import { Item } from "@/lib/types";
 import { ItemFormDialog } from "./item-form-dialog";
 import { ItemDeleteDialog } from "./item-delete-dialog";
-import { cn, imagePreviewSrc } from "@/lib/utils";
+import { capitalizeFirstLetter, cn, imagePreviewSrc } from "@/lib/utils";
 import { OptionTooltip } from "./option-tooltip";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ export const ItemCard = ({ item }: Props) => {
   return (
     <Card className="flex flex-col">
       <CardHeader className="h-1/4">
-        <CardTitle>{item.name}</CardTitle>
+        <CardTitle>{capitalizeFirstLetter(item.name)}</CardTitle>
         <CardDescription>Category: {item.category}</CardDescription>
       </CardHeader>
       <CardContent className="h-1/2">

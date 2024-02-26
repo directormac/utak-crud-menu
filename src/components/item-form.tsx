@@ -3,7 +3,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { GenericResponse, Item, Option } from "@/lib/types";
-import { MouseEventHandler, useEffect, useState } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { useItem } from "@/lib/queries";
 import { cn } from "@/lib/utils";
 import { Switch } from "./ui/switch";
@@ -11,12 +11,22 @@ import { InputField } from "./input-field";
 import { ItemOptionsForm } from "./item-options-form";
 import { toast } from "sonner";
 
+// type Props = {};
+//
+// const itemImagesForm: FC<Props> = () => {
+//   return (
+//     <>
+//       <img src="" alt="" />
+//     </>
+//   );
+// };
+
 type ItemFormProps = {
   id?: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const ItemForm = ({ id, setOpen }: ItemFormProps) => {
+export const ItemForm: FC<ItemFormProps> = ({ id, setOpen }) => {
   const currentSelectedItemData = useItem(id ?? "");
   const fetcher = useFetcher();
 
@@ -32,7 +42,7 @@ export const ItemForm = ({ id, setOpen }: ItemFormProps) => {
       cost: 0,
       stock: 0,
       category: "default",
-      images: ["default.png"],
+      images: [],
       options: [],
     },
   );
@@ -87,7 +97,7 @@ export const ItemForm = ({ id, setOpen }: ItemFormProps) => {
   }, [setItemData, currentSelectedItemData]);
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 mx-4 md:mx-1">
       <fetcher.Form
         method={currentSelectedItemData !== undefined ? "put" : "post"}
         className="flex flex-col space-y-4"

@@ -1,4 +1,5 @@
 import { useItem } from "@/lib/queries";
+import { capitalizeFirstLetter } from "@/lib/utils";
 import { FC, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -16,7 +17,7 @@ export const ItemPage: FC = () => {
     return (
       <>
         <h1 className="text-3xl font-bold">Item</h1>
-        <p>{item.name}</p>
+        <p>{capitalizeFirstLetter(item.name)}</p>
       </>
     );
 };

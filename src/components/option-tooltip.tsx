@@ -19,7 +19,7 @@ export const OptionTooltip: FC<Props> = ({ option }) => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="outline">{name}</Button>
+            <Button variant="outline">{name.toUpperCase()}</Button>
           </TooltipTrigger>
           <TooltipContent>
             <div className="text-center text-md">

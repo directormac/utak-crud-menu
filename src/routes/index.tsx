@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import { Layout } from "./layout";
 import { ErrorPage } from "./error";
-import { itemLoader, itemsLoader } from "@/lib/loaders";
+import { itemsLoader } from "@/lib/loaders";
 import { Home } from "./home";
 import { itemAction } from "@/lib/actions";
 import { ItemPage } from "./item";

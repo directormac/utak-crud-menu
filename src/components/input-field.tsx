@@ -9,8 +9,8 @@ type InputFieldProps = {
   type: React.HTMLInputTypeAttribute;
   hasError: boolean;
   error: string;
-  value: string | number;
   className?: string;
+  value: string | number;
   onChangeValue: React.Dispatch<React.SetStateAction<any>>;
   placeholder?: string;
 };
