@@ -35,7 +35,14 @@ export const ItemFormDialog = ({ update = false, id }: Props) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const actionButton = (
-    <Button variant={update ? "default" : "outline"}>
+    <Button
+      variant={update ? "default" : "outline"}
+      className={cn(
+        update
+          ? "bg-cyan-500 dark:bg-cyan-500"
+          : "bg-green-500 dark:bg-green-700",
+      )}
+    >
       {update ? (
         <>
           {isDesktop && (

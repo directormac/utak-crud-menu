@@ -46,22 +46,25 @@ const requiredString = (
 
 export type GenericResponse = {
   body: string;
-  errors: Record<string, string>;
+  errors: Record<string, string[]>;
 };
 
+const cost = number().min(0).max(1000000).default(0);
+const stock = number().max(1000000).default(0);
+
 export const optionSchema = object({
-  name: requiredString("Name", { min: 1, max: 32 }),
-  cost: number().default(0),
-  stock: number().default(0),
+  name: requiredString("Option Name", { min: 1, max: 32 }),
+  cost,
+  stock,
 });
 
 export type Option = output<typeof optionSchema>;
 
 export const itemSchema = object({
   id: string(),
-  name: requiredString("Name", { min: 2, max: 100 }),
-  cost: number().default(0),
-  stock: number().default(0),
+  name: requiredString("Item Name", { min: 2, max: 100 }),
+  cost,
+  stock,
   images: array(string()).default(["/default.png"]),
   options: array(optionSchema).default([]),
   category: string().default("default"),

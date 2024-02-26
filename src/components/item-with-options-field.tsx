@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FetcherWithComponents } from "react-router-dom";
 import { Option } from "@/lib/types";
 import { ChangeEvent, FC } from "react";
 import { InputField } from "./input-field";
 import { Button } from "./ui/button";
 import { Trash2Icon } from "lucide-react";
 
-type ItemOptionsFormProps = {
-  fetcher: FetcherWithComponents<any>;
+type ItemWithOptionsFieldProps = {
   options: Array<Option>;
   onOptionChange: (
     index: number,
@@ -17,8 +14,7 @@ type ItemOptionsFormProps = {
   onDeleteOption: (index: number) => void;
 };
 
-export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
-  fetcher,
+export const ItemWithOptionsField: FC<ItemWithOptionsFieldProps> = ({
   options,
   onOptionChange,
   onDeleteOption,
@@ -36,7 +32,7 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
     event: ChangeEvent<HTMLInputElement>,
   ) => {
     const { value } = event.target;
-    onOptionChange(index, "cost", Number(value));
+    onOptionChange(index, "cost", value);
   };
 
   const handleOptionStockChange = (
@@ -44,7 +40,7 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
     event: ChangeEvent<HTMLInputElement>,
   ) => {
     const { value } = event.target;
-    onOptionChange(index, "stock", Number(value));
+    onOptionChange(index, "stock", value);
   };
 
   if (options.length === 0) return <div>No options please add something</div>;
@@ -60,9 +56,8 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
               name={`options.${index}.name`}
               value={option.name}
               onChangeValue={(e) => handleOptionNameChange(index, e)}
-              hasError={fetcher.data?.errors?.[`options.${index}.name`]}
-              error={fetcher.data?.errors?.[`options.${index}.name`]}
               type="text"
+              required
             />
 
             <InputField
@@ -70,8 +65,6 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
               name={`options.${index}.cost`}
               value={option.cost}
               onChangeValue={(e) => handleOptionCostChange(index, e)}
-              hasError={fetcher.data?.errors?.[`options.${index}.cost`]}
-              error={fetcher.data?.errors?.[`options.${index}.cost`]}
               type="number"
             />
 
@@ -80,8 +73,6 @@ export const ItemOptionsForm: FC<ItemOptionsFormProps> = ({
               name={`options.${index}.stock`}
               value={option.stock}
               onChangeValue={(e) => handleOptionStockChange(index, e)}
-              hasError={fetcher.data?.errors?.[`options.${index}.stock`]}
-              error={fetcher.data?.errors?.[`options.${index}.stock`]}
               type="number"
             />
           </div>

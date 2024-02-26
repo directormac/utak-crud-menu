@@ -9,7 +9,12 @@ import {
 import { Item } from "@/lib/types";
 import { ItemFormDialog } from "./item-form-dialog";
 import { ItemDeleteDialog } from "./item-delete-dialog";
-import { capitalizeFirstLetter, cn, imagePreviewSrc } from "@/lib/utils";
+import {
+  capitalizeFirstLetter,
+  cn,
+  formatCost,
+  imagePreviewSrc,
+} from "@/lib/utils";
 import { OptionTooltip } from "./option-tooltip";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -38,27 +43,26 @@ export const ItemCard = ({ item }: Props) => {
               width="200px"
             />
           </div>
-
           <div className="w-1/2 text-sm">
-            {item.options && item.options[0].name !== "default" ? (
-              <div className="grid grid-cols-2 overflow-y-auto">
-                {item.options.map((item) => (
-                  <>
-                    <OptionTooltip option={item} />
-                  </>
+            {item.options ? (
+              <div className="grid grid-cols-2 gap-2">
+                {item.options.map((item, index) => (
+                  <OptionTooltip key={index} option={item} />
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col justify-center items-center">
-                <p className="text-xl">Stock: {item.stock}</p>
-                <p className="text-xl">Cost: {item.cost}</p>
+              <div className="flex flex-col text-left h-full justify-center">
+                <p className="text-lg truncate hover:text-clip">
+                  Stock: {item.stock}
+                </p>
+                <p className="text-lg">Cost: {formatCost(item.cost)}</p>
               </div>
             )}
           </div>
         </div>
       </CardContent>
       <CardFooter className="h-1/4 flex justify-end gap-x-2">
-        <Button asChild variant="outline">
+        <Button asChild variant="default">
           <Link to={`/items/${item.id}`}>
             {isDesktop && (
               <span className={cn(!isDesktop && "sr-only", "mr-2")}>

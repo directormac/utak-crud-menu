@@ -18,3 +18,9 @@ export const capitalizeFirstLetter = (str: string): string => {
 
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const formatCost = (input: number) => {
+  const parts = String(input).toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+};

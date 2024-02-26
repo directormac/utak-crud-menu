@@ -7,12 +7,13 @@ type InputFieldProps = {
   label: string;
   name: string;
   type: React.HTMLInputTypeAttribute;
-  hasError: boolean;
-  error: string;
+  hasError?: boolean;
+  error?: string;
   className?: string;
   value: string | number;
   onChangeValue: React.Dispatch<React.SetStateAction<any>>;
   placeholder?: string;
+  required?: boolean;
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -36,6 +37,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={onChangeValue}
         placeholder={placeholder}
+        required
       />
       {hasError && <p className="text-red-500 text-sm">{error}</p>}
     </div>

@@ -1,5 +1,5 @@
 import { ActionFunction } from "react-router-dom";
-import { CreateItem, GenericResponse, Item, itemSchema } from "./types";
+import { GenericResponse, Item, itemSchema } from "./types";
 import { removeItem, upsertItem } from "./firebase";
 import { toast } from "sonner";
 import { decode } from "decode-formdata";
@@ -9,7 +9,7 @@ import { queryClient } from "./utils";
 export const itemAction: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
-  const formValues = decode<CreateItem>(formData, {
+  const formValues = decode(formData, {
     arrays: ["images", "options"],
     files: ["images.$.file"],
     numbers: ["cost", "stock", "options.$.cost", "options.$.stock"],
@@ -18,6 +18,12 @@ export const itemAction: ActionFunction = async ({ request }) => {
   const message: GenericResponse = {
     body: "Something went wrong, Please try again later",
     errors: {},
+  };
+
+  const toastErorrs = (errors: Record<string, string[]>) => {
+    for (const key in errors) {
+      toast.error(`${key}: ${errors[key]}`);
+    }
   };
 
   switch (request.method) {
@@ -34,26 +40,14 @@ export const itemAction: ActionFunction = async ({ request }) => {
           string,
           string[]
         >;
-        for (const key in invalidFields) {
-          const value = invalidFields[key][0];
-          message.errors[key] = value;
-          toast.error(`${key}: ${value}`);
-        }
+        toastErorrs(invalidFields);
+        message.errors = invalidFields;
         return message;
       }
 
       const newItem = itemData.data;
 
       if (newItem.images.length === 0) newItem.images = ["default.png"];
-
-      if (newItem.options.length === 0)
-        newItem.options = [
-          {
-            name: "default",
-            stock: 0,
-            cost: 0,
-          },
-        ];
 
       const items = queryClient.getQueryData<Array<Item>>(["items"]);
 
@@ -80,19 +74,13 @@ export const itemAction: ActionFunction = async ({ request }) => {
       });
 
       if (!itemData.success) {
-        const invalidFields = itemData.error.flatten().fieldErrors as Record<
-          string,
-          string[]
-        >;
-        for (const key in invalidFields) {
-          const value = invalidFields[key][0];
-          message.errors[key] = value;
-          toast.error(`${key}: ${value}`);
-        }
+        const invalidFields = itemData.error.flatten().fieldErrors;
+        toastErorrs(invalidFields);
+        message.errors = invalidFields;
         return message;
       }
 
-      const result = await upsertItem(formValues.id, itemData.data);
+      const result = await upsertItem(itemData.data.id, itemData.data);
 
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
@@ -103,7 +91,7 @@ export const itemAction: ActionFunction = async ({ request }) => {
     }
     case "DELETE": {
       const { id } = formValues;
-      const result = await removeItem(id);
+      const result = await removeItem(id as string);
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
         toast.success(`Successfully removed item with id ${id}`);
@@ -111,6 +99,6 @@ export const itemAction: ActionFunction = async ({ request }) => {
       return message;
     }
     default:
-      return "Something went wrong";
+      return message;
   }
 };
