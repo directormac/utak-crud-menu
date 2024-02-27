@@ -111,6 +111,12 @@ export const ItemOptionsFields: FC<Props> = ({
         >
           {withOptions ? "With" : "Without"} options
         </span>
+        {withOptions && (
+          <span className="ml-auto text-orange-400 text-xs">
+            Toggling back to no options, will set cost and stock to the first
+            option values
+          </span>
+        )}
       </div>
       {!withOptions && (
         <>
