@@ -83,6 +83,7 @@ export const ItemWithOptionsField: FC<ItemWithOptionsFieldProps> = ({
               e.preventDefault();
               onDeleteOption(index);
             }}
+            disabled={index === 0 || index === 1}
           >
             <Trash2Icon />
           </Button>

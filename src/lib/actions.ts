@@ -1,5 +1,5 @@
-import { ActionFunction } from "react-router-dom";
-import { GenericResponse, Item, itemSchema } from "./types";
+import { ActionFunction, redirect } from "react-router-dom";
+import { GenericResponse, Item, Option, itemSchema } from "./types";
 import { removeItem, upsertItem } from "./firebase";
 import { toast } from "sonner";
 import { decode } from "decode-formdata";
@@ -26,6 +26,20 @@ export const itemAction: ActionFunction = async ({ request }) => {
     }
   };
 
+  const optionsNameUniqueValidator = (options: Array<Option>): boolean => {
+    const names = new Set();
+    options.forEach((option, index) => {
+      if (names.has(option.name)) {
+        message.body = `Option name must be unique, ${option.name} already exists at Option ${index + 1}`;
+        toast.error(message.body);
+        return false;
+      } else {
+        names.add(option.name);
+      }
+    });
+    return true;
+  };
+
   switch (request.method) {
     case "POST": {
       const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz1234567890", 13);
@@ -46,6 +60,9 @@ export const itemAction: ActionFunction = async ({ request }) => {
       }
 
       const newItem = itemData.data;
+
+      optionsNameUniqueValidator(newItem.options);
+      if (message.body.includes("unique")) return message;
 
       if (newItem.images.length === 0) newItem.images = ["default.png"];
 
@@ -80,6 +97,9 @@ export const itemAction: ActionFunction = async ({ request }) => {
         return message;
       }
 
+      optionsNameUniqueValidator(itemData.data.options);
+      if (message.body.includes("unique")) return message;
+
       const result = await upsertItem(itemData.data.id, itemData.data);
 
       if (result) {
@@ -95,6 +115,7 @@ export const itemAction: ActionFunction = async ({ request }) => {
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
         toast.success(`Successfully removed item with id ${id}`);
+        return redirect("/");
       }
       return message;
     }

@@ -14,6 +14,7 @@ type InputFieldProps = {
   onChangeValue: React.Dispatch<React.SetStateAction<any>>;
   placeholder?: string;
   required?: boolean;
+  min?: string;
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -26,6 +27,8 @@ export const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   className,
   onChangeValue,
+  required,
+  min,
 }) => {
   return (
     <div className="flex flex-col space-y-2">
@@ -37,7 +40,8 @@ export const InputField: React.FC<InputFieldProps> = ({
         value={value}
         onChange={onChangeValue}
         placeholder={placeholder}
-        required
+        required={required}
+        min={min}
       />
       {hasError && <p className="text-red-500 text-sm">{error}</p>}
     </div>

@@ -34,7 +34,8 @@ export const ItemOptionsFields: FC<Props> = ({
         cost: 0,
         stock: 0,
         options: [
-          { name: "default", cost: itemData.cost, stock: itemData.stock },
+          { name: "Option 1", cost: itemData.cost, stock: itemData.stock },
+          { name: "Option 2", cost: 0, stock: 0 },
         ],
       }));
     } else {
@@ -123,6 +124,7 @@ export const ItemOptionsFields: FC<Props> = ({
             error={fetcher?.data?.errors?.cost}
             name="cost"
             type="number"
+            min=""
           />
 
           <InputField
@@ -135,6 +137,7 @@ export const ItemOptionsFields: FC<Props> = ({
             error={fetcher?.data?.errors?.stock}
             name="stock"
             type="number"
+            min="0"
           />
         </>
       )}
