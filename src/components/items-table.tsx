@@ -10,11 +10,9 @@ import {
 } from "./ui/table";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { OptionCard } from "./option-card";
-import { ItemFormDialog } from "./item-form-dialog";
-import { ItemDeleteDialog } from "./item-delete-dialog";
-import { ItemDetailsLink } from "./item-details-link";
 import { Separator } from "./ui/separator";
 import { useMediaQuery } from "usehooks-ts";
+import { ItemMutationActions } from "./item-mutation-dropdown";
 
 type Props = {
   items: Array<Item>;
@@ -34,11 +32,11 @@ export const ItemsTable: FC<Props> = ({ items }) => {
         </p>
       </div>
       <Separator />
-      <Table className="text-sm md:text-lg w-fit md:w-full">
-        <TableHeader>
+      <Table className="justify-center items-center text-sm md:text-lg md:w-full">
+        <TableHeader className="font-bold">
           <TableRow>
-            <TableHead className="w-1/8">Name</TableHead>
-            <TableHead className="w-1/8">Category</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Category</TableHead>
             {largeScreen && <TableHead>Details</TableHead>}
             <TableHead>Actions</TableHead>
           </TableRow>
@@ -46,10 +44,10 @@ export const ItemsTable: FC<Props> = ({ items }) => {
         <TableBody>
           {items.map((item) => (
             <TableRow key={item.id}>
-              <TableCell className="w-1/8 text-ellipsis">
+              <TableCell className="text-ellipsis">
                 {capitalizeFirstLetter(item.name)}
               </TableCell>
-              <TableCell className="w-1/8  text-ellipsis">
+              <TableCell className="text-ellipsis">
                 {capitalizeFirstLetter(item.category)}
               </TableCell>
               {largeScreen && (
@@ -68,9 +66,11 @@ export const ItemsTable: FC<Props> = ({ items }) => {
                 </TableCell>
               )}
               <TableCell className="flex gap-x-1">
-                <ItemDetailsLink id={item.id} />
-                <ItemFormDialog update id={item.id} />
-                <ItemDeleteDialog id={item.id} name={item.name} />
+                <ItemMutationActions
+                  withDetials
+                  id={item.id}
+                  name={item.name}
+                />
               </TableCell>
             </TableRow>
           ))}

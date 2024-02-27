@@ -7,15 +7,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Item } from "@/lib/types";
-import { ItemFormDialog } from "./item-form-dialog";
-import { ItemDeleteDialog } from "./item-delete-dialog";
 import {
   capitalizeFirstLetter,
   formatCost,
   imagePreviewSrc,
 } from "@/lib/utils";
 import { OptionTooltip } from "./option-tooltip";
-import { ItemDetailsLink } from "./item-details-link";
+import { ItemMutationActions } from "./item-mutation-dropdown";
 
 type Props = {
   item: Item;
@@ -58,9 +56,12 @@ export const ItemCard = ({ item }: Props) => {
         </div>
       </CardContent>
       <CardFooter className="h-1/4 flex justify-end gap-x-2">
-        <ItemDetailsLink id={item.id} />
-        <ItemFormDialog update id={item.id} />
-        <ItemDeleteDialog id={item.id} name={item.name} />
+        <ItemMutationActions
+          withDetials
+          noDropdown
+          id={item.id}
+          name={item.name}
+        />
       </CardFooter>
     </Card>
   );
