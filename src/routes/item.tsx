@@ -1,7 +1,7 @@
+import { ItemCard } from "@/components/item-card";
 import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 import { useItemQuery } from "@/lib/queries";
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { ArrowLeftCircle } from "lucide-react";
 import { FC } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -15,8 +15,7 @@ export const ItemPage: FC = () => {
   if (item)
     return (
       <>
-        <h1 className="text-3xl font-bold">Item</h1>
-        <p>{capitalizeFirstLetter(item.name)}</p>
+        <ItemCard item={item} />
       </>
     );
 

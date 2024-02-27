@@ -15,8 +15,8 @@ export const OptionCard: FC<Props> = ({ option }) => {
         <HoverCardTrigger asChild>
           <Button variant="outline">{name}</Button>
         </HoverCardTrigger>
-        <HoverCardContent>
-          <div className="text-center text-md">
+        <HoverCardContent className="w-fit">
+          <div className="text-center">
             <p>Stock: {stock}</p>
             <p>Cost: {cost}</p>
           </div>

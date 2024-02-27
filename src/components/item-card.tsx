@@ -11,22 +11,18 @@ import { ItemFormDialog } from "./item-form-dialog";
 import { ItemDeleteDialog } from "./item-delete-dialog";
 import {
   capitalizeFirstLetter,
-  cn,
   formatCost,
   imagePreviewSrc,
 } from "@/lib/utils";
 import { OptionTooltip } from "./option-tooltip";
-import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
-import { ReceiptText } from "lucide-react";
-import { useMediaQuery } from "usehooks-ts";
+import { ItemDetailsLink } from "./item-details-link";
 
 type Props = {
   item: Item;
+  detail?: boolean;
 };
 
 export const ItemCard = ({ item }: Props) => {
-  const isDesktop = useMediaQuery("(min-width: 1250px)");
   return (
     <Card className="flex flex-col">
       <CardHeader className="h-1/4">
@@ -62,16 +58,7 @@ export const ItemCard = ({ item }: Props) => {
         </div>
       </CardContent>
       <CardFooter className="h-1/4 flex justify-end gap-x-2">
-        <Button asChild variant="default">
-          <Link to={`/items/${item.id}`}>
-            {isDesktop && (
-              <span className={cn(!isDesktop && "sr-only", "mr-2")}>
-                Details
-              </span>
-            )}
-            <ReceiptText />
-          </Link>
-        </Button>
+        <ItemDetailsLink id={item.id} />
         <ItemFormDialog update id={item.id} />
         <ItemDeleteDialog id={item.id} name={item.name} />
       </CardFooter>

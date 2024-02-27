@@ -54,7 +54,7 @@ export const ItemFormDialog = ({ update = false, id }: Props) => {
         <>
           {isDesktop && (
             <span className={cn(!isDesktop && "sr-only", "mr-2")}>
-              New Item
+              Create Item
             </span>
           )}
           <PlusIcon className="h-4 w-4" />
