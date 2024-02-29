@@ -44,7 +44,7 @@ export const ItemDeleteDialog = ({ id, name }: Props) => {
         <DialogHeader>
           <DialogTitle>Confirm Action</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete {name && ""}?
+            Are you sure you want to delete {name}?
           </DialogDescription>
         </DialogHeader>
         <Form method="delete">
