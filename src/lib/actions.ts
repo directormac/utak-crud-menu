@@ -104,6 +104,9 @@ export const itemAction: ActionFunction = async ({ request }) => {
 
       if (result) {
         queryClient.invalidateQueries({ queryKey: ["items"] });
+
+        queryClient.invalidateQueries({ queryKey: ["item"] });
+
         message.body = `Successfully updated item with id ${formValues.id}`;
         toast.success(message.body);
       }
