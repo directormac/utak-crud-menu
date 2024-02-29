@@ -25,6 +25,7 @@ export const router = createBrowserRouter(
         element={<ItemPage />}
         errorElement={<ErrorPage />}
         loader={itemLoader}
+        action={itemAction}
       />
     </Route>,
   ),
